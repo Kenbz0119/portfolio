@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenneth — Virtual Assistant & SMM Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --cream:#FAF7F2;
+  --ink:#0F0E0C;
+  --slate:#2A2926;
+  --muted:#7A7870;
+  --accent:#1A4FFF;
+  --accent2:#FF5C35;
+  --gold:#C9A84C;
+  --border:#E5E0D8;
+  --card:#FFFFFF;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1000;opacity:.4;
+}
+
+/* ── NAVIGATION ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  padding:20px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:100;
+  background:rgba(250,247,242,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(229,224,216,0.5);
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:22px;
+  letter-spacing:-0.5px;
+  color:var(--ink);
+}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:36px}
+.nav-links a{
+  font-size:13px;font-weight:500;
+  color:var(--muted);text-decoration:none;
+  letter-spacing:.04em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{
+  background:var(--ink);color:var(--cream);
+  padding:10px 22px;border-radius:100px;
+  font-size:13px;font-weight:500;
+  text-decoration:none;letter-spacing:.03em;
+  transition:background .2s,transform .15s;
+}
+.nav-cta:hover{background:var(--accent);transform:scale(1.02)}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  padding:0 200px;
+  padding-top:90px;
+  gap:0;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-left{
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:60px 0 60px;
+  position:relative;z-index:2;
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:12px;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:28px;
+}
+.hero-eyebrow::before{
+  content:'';display:block;
+  width:32px;height:1px;background:var(--accent);
+}
+
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,6vw,80px);
+  line-height:.95;
+  letter-spacing:-2px;
+  color:var(--ink);
+  margin-bottom:10px;
+}
+.hero-name .first{display:block}
+.hero-name .last{
+  display:block;
+  color:transparent;
+  -webkit-text-stroke:2px var(--ink);
+}
+
+.hero-role{
+  font-size:clamp(13px,1.4vw,16px);
+  color:var(--muted);
+  line-height:1.7;
+  max-width:380px;
+  margin:24px 0 40px;
+  font-weight:300;
+}
+
+.hero-tags{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:44px;
+}
+.hero-tag{
+  padding:6px 16px;
+  border:1px solid var(--border);
+  border-radius:100px;
+  font-size:12px;font-weight:500;
+  color:var(--slate);
+  background:transparent;
+  transition:all .2s;
+}
+.hero-tag:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.hero-tag.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.hero-actions{display:flex;gap:14px;align-items:center}
+.btn-primary{
+  background:var(--ink);color:var(--cream);
+  padding:14px 32px;border-radius:100px;
+  font-size:14px;font-weight:500;
+  text-decoration:none;
+  transition:all .2s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px)}
+.btn-secondary{
+  color:var(--ink);font-size:14px;font-weight:500;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:gap .2s;
+}
+.btn-secondary:hover{gap:12px}
+
+.hero-right{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;padding:60px 0;
+}
+
+.hero-photo-wrap{
+  position:relative;
+  width:360px;height:460px;
+}
+.hero-photo-bg{
+  position:absolute;
+  top:20px;left:20px;right:-20px;bottom:-20px;
+  background:var(--accent);
+  border-radius:200px 200px 160px 160px;
+  opacity:.08;
+}
+.hero-photo-ring{
+  position:absolute;inset:-16px;
+  border:1px solid var(--border);
+  border-radius:200px 200px 160px 160px;
+}
+.hero-photo{
+  width:100%;height:100%;
+  object-fit:cover;
+  border-radius:200px 200px 160px 160px;
+  position:relative;z-index:1;
+}
+.hero-photo-placeholder{
+  width:100%;height:100%;
+  border-radius:200px 200px 160px 160px;
+  background:linear-gradient(160deg,#e8e4dd 0%,#d5cfc6 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+}
+.hero-photo-placeholder svg{opacity:.25;margin-bottom:12px}
+.hero-photo-placeholder p{font-size:12px;color:var(--muted)}
+
+.hero-badge{
+  position:absolute;bottom:80px;left:-30px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px 18px;
+  z-index:3;
+  box-shadow:0 8px 32px rgba(0,0,0,.06);
+  animation:float 4s ease-in-out infinite;
+}
+.hero-badge-num{font-family:'Playfair Display',serif;font-size:24px;color:var(--accent);font-weight:700}
+.hero-badge-txt{font-size:11px;color:var(--muted);font-weight:500}
+
+.hero-badge2{
+  position:absolute;top:80px;right:-20px;
+  background:var(--ink);
+  border-radius:14px;
+  padding:12px 16px;
+  z-index:3;
+  animation:float 4s ease-in-out infinite .8s;
+}
+.hero-badge2 p{font-size:11px;color:rgba(255,255,255,.7);margin-bottom:4px}
+.hero-badge2 div{display:flex;align-items:center;gap:6px}
+.hero-badge2 span{font-size:13px;color:#fff;font-weight:500}
+.dot-green{width:7px;height:7px;background:#4ADE80;border-radius:50%;animation:pulse-dot 2s infinite}
+
+.hero-decor{
+  position:absolute;bottom:40px;right:10px;
+  width:100px;height:100px;
+  border:1px dashed var(--border);
+  border-radius:50%;
+  opacity:.5;
+}
+.hero-decor::after{
+  content:'';position:absolute;inset:12px;
+  border:1px dashed var(--border);
+  border-radius:50%;
+}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── BIG NUMBER ROW ── */
+.stats-bar{
+  padding:48px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:var(--card);
+}
+.stat-item{
+  padding:24px 32px;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.stat-item:last-child{border-right:none}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,4vw,52px);
+  color:var(--ink);
+  line-height:1;
+  margin-bottom:8px;
+}
+.stat-num sup{font-size:.45em;vertical-align:super;color:var(--accent)}
+.stat-label{font-size:13px;color:var(--muted);font-weight:400;line-height:1.5}
+
+/* ── SECTION SHARED ── */
+section{padding:100px 48px}
+.section-header{margin-bottom:64px}
+.section-kicker{
+  font-size:11px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.14em;
+  color:var(--accent);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-kicker::after{content:'';flex:1;height:1px;background:var(--border)}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,4vw,52px);
+  line-height:1.05;letter-spacing:-1.5px;
+  color:var(--ink);
+}
+.section-title em{font-style:italic;color:var(--accent)}
+
+/* ── SERVICES ── */
+#services{background:var(--ink);position:relative;overflow:hidden}
+#services .section-kicker{color:var(--gold)}
+#services .section-kicker::after{background:rgba(255,255,255,.1)}
+#services .section-title{color:var(--cream)}
+#services .section-title em{color:var(--gold)}
+
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  overflow:hidden;
+}
+.service-card{
+  padding:44px 40px;
+  background:var(--ink);
+  transition:background .3s;
+  position:relative;
+  overflow:hidden;
+}
+.service-card:hover{background:#1A1916}
+.service-card::before{
+  content:'';
+  position:absolute;top:0;left:0;
+  width:3px;height:0;
+  background:var(--gold);
+  transition:height .3s;
+}
+.service-card:hover::before{height:100%}
+
+.service-num{
+  font-family:'Playfair Display',serif;
+  font-size:48px;color:rgba(255,255,255,.06);
+  line-height:1;margin-bottom:20px;
+  font-style:italic;
+}
+.service-icon{
+  width:44px;height:44px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+  font-size:20px;
+}
+.service-title{
+  font-size:20px;font-weight:500;
+  color:#fff;margin-bottom:12px;
+  letter-spacing:-.3px;
+}
+.service-desc{
+  font-size:14px;color:rgba(255,255,255,.5);
+  line-height:1.7;font-weight:300;
+}
+.service-tags{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;
+}
+.service-tag{
+  font-size:11px;
+  padding:4px 10px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:100px;
+  color:rgba(255,255,255,.4);
+}
+
+/* ── SKILLS ── */
+#skills{background:var(--cream)}
+.skills-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
+
+.skill-category{margin-bottom:40px}
+.skill-cat-name{
+  font-size:11px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:var(--muted);margin-bottom:16px;
+  padding-bottom:12px;border-bottom:1px solid var(--border);
+}
+.skill-items{display:flex;flex-wrap:wrap;gap:8px}
+.skill-pill{
+  padding:7px 16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:100px;
+  font-size:13px;color:var(--slate);
+  transition:all .2s;cursor:default;
+}
+.skill-pill:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.skill-pill.highlight{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tool-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px 16px;
+  text-align:center;
+  transition:all .25s;
+}
+.tool-card:hover{
+  border-color:var(--accent);
+  transform:translateY(-4px);
+  box-shadow:0 12px 32px rgba(26,79,255,.08);
+}
+.tool-icon{font-size:26px;margin-bottom:10px;display:block}
+.tool-name{font-size:12px;font-weight:500;color:var(--slate)}
+.tool-type{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ── PORTFOLIO ── */
+#portfolio{background:var(--card)}
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  grid-template-rows:auto auto;
+  gap:16px;
+}
+.port-card{
+  border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;
+  transition:transform .25s,box-shadow .25s;
+  cursor:pointer;
+}
+.port-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.08)}
+.port-card.tall{grid-row:span 2}
+.port-visual{
+  height:200px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:48px;
+  position:relative;overflow:hidden;
+}
+.port-visual.blue{background:linear-gradient(135deg,#EEF2FF,#C7D2FE)}
+.port-visual.coral{background:linear-gradient(135deg,#FFF1EE,#FFD4C9)}
+.port-visual.gold{background:linear-gradient(135deg,#FFFBEB,#FDE68A)}
+.port-visual.green{background:linear-gradient(135deg,#ECFDF5,#A7F3D0)}
+.port-visual-tall{height:300px}
+.port-body{padding:24px}
+.port-cat{
+  font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--muted);font-weight:500;margin-bottom:8px;
+}
+.port-title{font-size:17px;font-weight:500;color:var(--ink);margin-bottom:8px;letter-spacing:-.2px}
+.port-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.port-link{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:500;color:var(--accent);
+  text-decoration:none;margin-top:12px;
+  transition:gap .2s;
+}
+.port-link:hover{gap:10px}
+
+/* ── WHY ME ── */
+#why{background:var(--cream)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.why-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:36px 32px;
+  transition:all .25s;
+  position:relative;overflow:hidden;
+}
+.why-card::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;
+  height:3px;background:var(--accent);
+  transform:scaleX(0);
+  transition:transform .3s;
+}
+.why-card:hover::after{transform:scaleX(1)}
+.why-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.06)}
+.why-card:nth-child(2)::after{background:var(--accent2)}
+.why-card:nth-child(3)::after{background:var(--gold)}
+.why-num{
+  font-family:'Playfair Display',serif;
+  font-size:52px;color:var(--border);
+  font-style:italic;line-height:1;
+  margin-bottom:16px;
+}
+.why-title{font-size:18px;font-weight:500;color:var(--ink);margin-bottom:12px}
+.why-desc{font-size:14px;color:var(--muted);line-height:1.7;font-weight:300}
+
+/* ── TESTIMONIALS ── */
+#testimonials{background:var(--ink);padding:100px 48px}
+#testimonials .section-title{color:var(--cream)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.testi-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  padding:32px 28px;
+}
+.testi-quote{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:16px;color:rgba(255,255,255,.8);
+  line-height:1.65;margin-bottom:24px;
+}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:500;color:var(--ink);
+}
+.testi-name{font-size:13px;color:#fff;font-weight:500}
+.testi-role{font-size:12px;color:rgba(255,255,255,.4)}
+.testi-stars{color:var(--gold);font-size:12px;margin-bottom:16px}
+
+/* ── CONTACT ── */
+#contact{
+  background:var(--cream);
+  padding:100px 48px;
+}
+.contact-wrap{
+  max-width:800px;margin:0 auto;text-align:center;
+}
+.contact-big{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(40px,5vw,72px);
+  line-height:1;letter-spacing:-2px;
+  color:var(--ink);margin-bottom:24px;
+}
+.contact-big em{font-style:italic;color:var(--accent)}
+.contact-sub{
+  font-size:16px;color:var(--muted);
+  max-width:440px;margin:0 auto 48px;line-height:1.7;font-weight:300;
+}
+.contact-links{
+  display:flex;justify-content:center;gap:16px;flex-wrap:wrap;
+  margin-bottom:48px;
+}
+.contact-link{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 24px;
+  border:1px solid var(--border);
+  border-radius:100px;
+  font-size:14px;color:var(--ink);
+  text-decoration:none;font-weight:500;
+  background:var(--card);
+  transition:all .2s;
+}
+.contact-link:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.contact-link svg{width:16px;height:16px}
+.contact-cta-big{
+  display:inline-block;
+  background:var(--ink);color:var(--cream);
+  padding:18px 48px;border-radius:100px;
+  font-size:15px;font-weight:500;
+  text-decoration:none;
+  transition:all .2s;
+  letter-spacing:.02em;
+}
+.contact-cta-big:hover{background:var(--accent);transform:scale(1.03)}
+
+/* ── FOOTER ── */
+footer{
+  padding:28px 48px;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--card);
+}
+footer p{font-size:12px;color:var(--muted)}
+.footer-logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--ink)}
+.footer-logo span{color:var(--accent)}
+
+/* ── ENTRANCE ANIMATIONS ── */
+.fade-up{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);
+}
+.fade-up.visible{opacity:1;transform:none}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  #hero{grid-template-columns:1fr;padding:24px;padding-top:80px;min-height:auto}
+  .hero-right{display:none}
+  .stats-bar{grid-template-columns:repeat(2,1fr);padding:24px}
+  .stat-item:nth-child(2){border-right:none}
+  section{padding:64px 24px}
+  .services-grid{grid-template-columns:1fr}
+  .skills-layout{grid-template-columns:1fr;gap:40px}
+  .portfolio-grid{grid-template-columns:1fr}
+  .port-card.tall{grid-row:span 1}
+  .why-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">K<span>.</span>Mogato</div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#skills">Skills</a>
+    <a href="#portfolio">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:sociallyken@gmail.com" class="nav-cta">Hire me →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left fade-up">
+    <div class="hero-eyebrow">Available for freelance work</div>
+    <h1 class="hero-name">
+      <span class="first">Kenneth</span>
+      <span class="last">Mogato</span>
+    </h1>
+    <p class="hero-role">Virtual assistant & digital growth specialist helping businesses run smoother, grow faster, and show up online with confidence.</p>
+    <div class="hero-tags">
+      <span class="hero-tag active">Admin Assistant</span>
+      <span class="hero-tag">Executive Support</span>
+      <span class="hero-tag">Social Media</span>
+      <span class="hero-tag">LinkedIn Lead Gen</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">
+        Let's work together
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#portfolio" class="btn-secondary">View my work →</a>
+    </div>
+  </div>
+
+  <div class="hero-right fade-up" style="transition-delay:.15s">
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-bg"></div>
+      <div class="hero-photo-ring"></div>
+      <div class="hero-photo-placeholder">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <img src="Gemini_Generated_Image_m65p6rm65p6rm65p.png" alt="Kenneth Mogato" class="hero-photo">
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-num">100%</div>
+        <div class="hero-badge-txt">Client focused</div>
+      </div>
+      <div class="hero-badge2">
+        <p>Status</p>
+        <div>
+          <span class="dot-green"></span>
+          <span>Open to work</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-decor"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item fade-up">
+    <div class="stat-num">4<sup>+</sup></div>
+    <div class="stat-label">Core service<br>specializations</div>
+  </div>
+  <div class="stat-item fade-up" style="transition-delay:.1s">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Commitment to<br>every client</div>
+  </div>
+  <div class="stat-item fade-up" style="transition-delay:.2s">
+    <div class="stat-num">24<sup>h</sup></div>
+    <div class="stat-label">Response time<br>guaranteed</div>
+  </div>
+  <div class="stat-item fade-up" style="transition-delay:.3s">
+    <div class="stat-num">PH</div>
+    <div class="stat-label">Based in the<br>Philippines 🇵🇭</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header fade-up">
+    <div class="section-kicker">What I do</div>
+    <h2 class="section-title">Services built to<br><em>move your business</em></h2>
+  </div>
+  <div class="services-grid fade-up">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">🗂️</div>
+      <h3 class="service-title">Administrative Assistant</h3>
+      <p class="service-desc">Keeping your business organized and running efficiently — from inbox management to scheduling, data entry, and document handling, I handle the back-end so you can focus on what matters.</p>
+      <div class="service-tags">
+        <span class="service-tag">Email Management</span>
+        <span class="service-tag">Calendar Scheduling</span>
+        <span class="service-tag">Data Entry</span>
+        <span class="service-tag">File Organization</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">💼</div>
+      <h3 class="service-title">Executive Assistant</h3>
+      <p class="service-desc">High-level support for busy executives and business owners. I manage your priorities, coordinate meetings, prepare reports, and handle communications — seamlessly and professionally.</p>
+      <div class="service-tags">
+        <span class="service-tag">Meeting Coordination</span>
+        <span class="service-tag">Report Preparation</span>
+        <span class="service-tag">Travel Planning</span>
+        <span class="service-tag">Communications</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">📱</div>
+      <h3 class="service-title">Social Media Management</h3>
+      <p class="service-desc">Strategic content creation and community management across platforms. From eye-catching posts to analytics reports — I grow your brand presence and keep your audience engaged.</p>
+      <div class="service-tags">
+        <span class="service-tag">Content Creation</span>
+        <span class="service-tag">Account Growth</span>
+        <span class="service-tag">Analytics Reports</span>
+        <span class="service-tag">Engagement</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-icon">🔗</div>
+      <h3 class="service-title">LinkedIn Lead Generation</h3>
+      <p class="service-desc">Targeted outreach and lead generation on LinkedIn to fill your pipeline with qualified prospects. I research, connect, and nurture relationships that convert into real business opportunities.</p>
+      <div class="service-tags">
+        <span class="service-tag">Profile Optimization</span>
+        <span class="service-tag">Prospect Research</span>
+        <span class="service-tag">Outreach Campaigns</span>
+        <span class="service-tag">CRM Updates</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header fade-up">
+    <div class="section-kicker">Capabilities</div>
+    <h2 class="section-title">Skills & <em>tools</em> I work with</h2>
+  </div>
+  <div class="skills-layout fade-up">
+    <div>
+      <div class="skill-category">
+        <div class="skill-cat-name">Administrative</div>
+        <div class="skill-items">
+          <span class="skill-pill highlight">Email Management</span>
+          <span class="skill-pill">Calendar Management</span>
+          <span class="skill-pill">Data Entry</span>
+          <span class="skill-pill">Document Preparation</span>
+          <span class="skill-pill">File Organization</span>
+          <span class="skill-pill">Report Writing</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-name">Social Media</div>
+        <div class="skill-items">
+          <span class="skill-pill highlight">Content Creation</span>
+          <span class="skill-pill">Graphic Design</span>
+          <span class="skill-pill">Caption Writing</span>
+          <span class="skill-pill">Hashtag Research</span>
+          <span class="skill-pill">Analytics & Reporting</span>
+          <span class="skill-pill">Community Management</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-name">Lead Generation</div>
+        <div class="skill-items">
+          <span class="skill-pill highlight">LinkedIn Outreach</span>
+          <span class="skill-pill">Prospect Research</span>
+          <span class="skill-pill">Cold Messaging</span>
+          <span class="skill-pill">CRM Management</span>
+          <span class="skill-pill">Lead Tracking</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-name">Soft skills</div>
+        <div class="skill-items">
+          <span class="skill-pill">Detail-oriented</span>
+          <span class="skill-pill">Fast Learner</span>
+          <span class="skill-pill">Reliable</span>
+          <span class="skill-pill">Professional Communication</span>
+          <span class="skill-pill">Time Management</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="skill-cat-name" style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)">Tools & platforms</div>
+      <div class="tools-grid">
+        <div class="tool-card"><span class="tool-icon">📧</span><div class="tool-name">Gmail / Outlook</div><div class="tool-type">Email</div></div>
+        <div class="tool-card"><span class="tool-icon">📅</span><div class="tool-name">Google Calendar</div><div class="tool-type">Scheduling</div></div>
+        <div class="tool-card"><span class="tool-icon">🎨</span><div class="tool-name">Canva</div><div class="tool-type">Design</div></div>
+        <div class="tool-card"><span class="tool-icon">📊</span><div class="tool-name">Google Sheets</div><div class="tool-type">Data</div></div>
+        <div class="tool-card"><span class="tool-icon">💼</span><div class="tool-name">LinkedIn</div><div class="tool-type">Lead Gen</div></div>
+        <div class="tool-card"><span class="tool-icon">📱</span><div class="tool-name">Meta Business</div><div class="tool-type">Social</div></div>
+        <div class="tool-card"><span class="tool-icon">✅</span><div class="tool-name">Trello / Notion</div><div class="tool-type">Project Mgmt</div></div>
+        <div class="tool-card"><span class="tool-icon">🤝</span><div class="tool-name">Slack / Teams</div><div class="tool-type">Communication</div></div>
+        <div class="tool-card"><span class="tool-icon">📝</span><div class="tool-name">Google Docs</div><div class="tool-type">Documents</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header fade-up">
+    <div class="section-kicker">Sample work</div>
+    <h2 class="section-title">What I can <em>deliver</em><br>for your business</h2>
+  </div>
+  <div class="portfolio-grid fade-up">
+    <div class="port-card tall">
+      <div class="port-visual blue port-visual-tall" style="height:280px;font-size:64px">📱</div>
+      <div class="port-body">
+        <div class="port-cat">Social Media Management</div>
+        <div class="port-title">30-Day Social Media Content Plan</div>
+        <div class="port-desc">A full month of content strategy — captions, hashtags, posting schedule, and visual direction — for a small business looking to grow on Instagram and Facebook.</div>
+        <a href="#contact" class="port-link">Get this for your business →</a>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-visual coral">🔗</div>
+      <div class="port-body">
+        <div class="port-cat">LinkedIn Lead Generation</div>
+        <div class="port-title">LinkedIn Outreach Campaign</div>
+        <div class="port-desc">Targeted connection and messaging sequences that generate qualified leads for B2B businesses.</div>
+        <a href="#contact" class="port-link">Learn more →</a>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-visual gold">🗂️</div>
+      <div class="port-body">
+        <div class="port-cat">Administrative Support</div>
+        <div class="port-title">Executive Inbox & Calendar System</div>
+        <div class="port-desc">Complete inbox zero system and color-coded calendar setup for a busy executive.</div>
+        <a href="#contact" class="port-link">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ME -->
+<section id="why">
+  <div class="section-header fade-up">
+    <div class="section-kicker">Why Kenneth</div>
+    <h2 class="section-title">What sets me <em>apart</em></h2>
+  </div>
+  <div class="why-grid fade-up">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <h3 class="why-title">Hungry to prove myself</h3>
+      <p class="why-desc">I'm early in my career — and that means I bring 100% effort to every task. You'll never get half-hearted work from someone building their reputation from scratch.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <h3 class="why-title">Fast learner, zero hand-holding</h3>
+      <p class="why-desc">I pick up new tools, systems, and workflows quickly. Give me clear direction once and I'll run with it — no need to micromanage the details.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <h3 class="why-title">Communication you can count on</h3>
+      <p class="why-desc">No ghosting, no late replies. I keep you updated, meet deadlines, and flag issues before they become problems. Reliability is my baseline, not a bonus.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-header fade-up">
+    <div class="section-kicker" style="color:var(--gold)">Social proof</div>
+    <h2 class="section-title">What clients <em style="color:var(--gold)">say</em></h2>
+  </div>
+  <div class="testi-grid fade-up">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Kenneth was professional, responsive, and delivered everything on time. Highly recommend for anyone looking for a reliable VA."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">JD</div>
+        <div>
+          <div class="testi-name">Client Name</div>
+          <div class="testi-role">Small Business Owner</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Our LinkedIn engagement improved significantly after Kenneth took over our outreach. The leads he found were exactly what we needed."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#C7D2FE;color:#3730A3">MR</div>
+        <div>
+          <div class="testi-name">Client Name</div>
+          <div class="testi-role">Marketing Manager</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Finally someone who takes ownership. Kenneth managed my calendar and inbox like a pro — I gained back 10 hours a week."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#A7F3D0;color:#065F46">SP</div>
+        <div>
+          <div class="testi-name">Client Name</div>
+          <div class="testi-role">Executive, Tech Startup</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:32px;font-size:13px;color:rgba(255,255,255,.3);font-style:italic">Testimonials will be updated as you gain real clients — placeholders for now.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap fade-up">
+    <h2 class="contact-big">Ready to work<br><em>together?</em></h2>
+    <p class="contact-sub">Whether you need a reliable VA, a social media boost, or a LinkedIn lead machine — let's talk about how I can help.</p>
+    <div class="contact-links">
+      <a href="mailto:sociallyken@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        sociallyken@gmail.com
+      </a>
+      <a href="https://wa.me/639922640435" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/><path d="M8 11.5c.5 1.5 2 3 3.5 3.5l1-1 2 1c-1 2-4.5 1-6.5-1S7 9 9 8l1 2-1 1z"/></svg>
+        +63 992 264 0435
+      </a>
+    </div>
+    <a href="mailto:sociallyken@gmail.com" class="contact-cta-big">Send me a message →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">K<span>.</span>Manuel</div>
+  <p>© 2025 Kenneth Manuel · Virtual Assistant & SMM Specialist</p>
+  <p>Iligan City, Philippines 🇵🇭</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
